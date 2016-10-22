@@ -1,0 +1,8 @@
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\bin\Release\LevelEditor.exe.config
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\bin\Release\LevelEditor.exe
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\bin\Release\LevelEditor.pdb
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\obj\Release\LevelEditor.Form1.resources
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\obj\Release\LevelEditor.Properties.Resources.resources
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\obj\Release\LevelEditor.csproj.GenerateResource.Cache
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\obj\Release\LevelEditor.exe
+C:\Users\Home\Documents\Game-Jam-Fall-2016\LevelEditor\LevelEditor\LevelEditor\obj\Release\LevelEditor.pdb
