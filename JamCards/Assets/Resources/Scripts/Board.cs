@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour {
 
@@ -26,7 +27,7 @@ public class Board : MonoBehaviour {
         {
             whiteArray[i] = Color.white;
         }
-        for (int x = 0; x < 1000; x += 100)
+        for (int x = 0; x < 1000; x += 50)
         {
             blankBoard.SetPixels(x, 0, 1, 1000, whiteArray);
             blankBoard.SetPixels(0, x, 1000, 1, whiteArray);
@@ -41,6 +42,7 @@ public class Board : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        
 	
 	}
 }
