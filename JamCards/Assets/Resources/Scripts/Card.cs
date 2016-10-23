@@ -74,6 +74,9 @@ public class Card : MonoBehaviour {
                     case UnitDat.unitType.MELEE:
                         imgSprite = Resources.Load<Sprite>("Graphics/melee");
                         break;
+                    case UnitDat.unitType.ARCHER:
+                        imgSprite = Resources.Load<Sprite>("Graphics/ranged");
+                        break;
                     default:
                         imgSprite = Resources.Load<Sprite>("Graphics/melee");
                         break;

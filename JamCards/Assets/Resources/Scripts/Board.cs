@@ -57,10 +57,45 @@ public class Board : MonoBehaviour {
 
         this.transform.Translate(-5, -5, 0);
         makeGrid(20, 20);
+        loadGridFromFile(System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Resources\\Levels\\TestLevel");
+        setUpBoardSprites();
     }
 
-    void makeGrid(int x, int y) {
+    void makeGrid(int x, int y)
+    {
         tiles = new boardTiles[x, y];
+        for (int i = 0; i < 20; i++)
+        {
+            for (int j = 0; j < 20; j++)
+            {
+                tiles[i, j] = new boardTiles();
+            }
+        }
+    }
+
+    void setUpBoardSprites() {
+        for (int x = 0; x < 20; x++){
+            for (int y = 0; y < 20; y++) {
+                GameObject newSprite = GameObject.Instantiate((GameObject)Resources.Load("Prefab/BoardSprite"));
+                newSprite.name = this.name + x.ToString() + "-" + y.ToString();
+                Vector3 position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                position.x += (50 * x) / 100f + 25f / 100f;
+                position.y += ((20 * 50) - (y * 50)) / 100f - 25f / 100f;
+                newSprite.transform.position = position;
+                switch (tiles[x, y].type) {
+                    case tileType.HILL:
+                        newSprite.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("Graphics/hill");
+                        break;
+                    case tileType.MOUNTAIN:
+                        newSprite.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("Graphics/mountain");
+                        break;
+                    case tileType.TREE:
+                        newSprite.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("Graphics/tree");
+                        break;
+                }
+                newSprite.transform.parent = transform;
+            }
+        }
     }
 
     void loadGridFromFile(string path) {
