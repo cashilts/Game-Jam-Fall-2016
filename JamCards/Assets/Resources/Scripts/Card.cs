@@ -98,8 +98,9 @@ public class Card : MonoBehaviour {
         string oldName = gameObject.name;
         gameObject.name = newName;
         foreach(Transform child in transform) {
-            child.parent.name.Replace(oldName, newName);
+            child.name = child.name.Replace(oldName, newName);
         }
+        gameObject.transform.FindChild(newName + "-name").GetComponent<TextMesh>().text = newName;
         
     }
 }
