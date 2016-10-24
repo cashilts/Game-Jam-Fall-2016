@@ -3,18 +3,23 @@ using System.Collections;
 using Assets.Resources.Scripts;
 
 public class Card : MonoBehaviour {
+    static int cardNum = 0;
+
     const float width = 1600;   
     const float height =1600;
-    public const float cardUnitWidth = 16f;
+    public const float cardUnitWidth = 16f * 0.75f;
     public int cardAttack = 0;
     public int cardHealth = 0;
     public int cardSpeed = 0;
 
     public CardData cardData;
 
-	// Use this for initialization
-	void Start () {
-        
+    private int cardMoveTranistion;
+    Vector3 cardTransitionStart = Vector3.zero;
+    Vector3 cardTransitionEnd;
+
+    // Use this for initialization
+    void Start() {
         GameObject cardImg = GameObject.Instantiate<GameObject>((GameObject)Resources.Load("Prefab/Card-img"));
         cardImg.name = gameObject.name + "-img";
         Vector3 cardPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
@@ -22,7 +27,7 @@ public class Card : MonoBehaviour {
         cardImg.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Graphics/sword");
         cardImg.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
         Vector3 imgSize = cardImg.GetComponent<SpriteRenderer>().sprite.bounds.size;
-        float widthScale = (width * 0.5f)/(imgSize.x * cardImg.GetComponent<SpriteRenderer>().sprite.pixelsPerUnit);
+        float widthScale = (width * 0.5f) / (imgSize.x * cardImg.GetComponent<SpriteRenderer>().sprite.pixelsPerUnit);
         float heightScale = (height * 0.5f) / (imgSize.y * cardImg.GetComponent<SpriteRenderer>().sprite.pixelsPerUnit);
         cardImg.transform.localScale = new Vector3(widthScale, heightScale, 1);
 
@@ -31,7 +36,7 @@ public class Card : MonoBehaviour {
         cardName.GetComponent<TextMesh>().text = gameObject.name;
         Vector3 namePos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         namePos.x -= width / 2 / 100 - 1;
-        namePos.y += ((height/ 100) / 2) - 1;
+        namePos.y += ((height / 100) / 2) - 1;
         cardName.transform.position = namePos;
 
 
@@ -40,14 +45,14 @@ public class Card : MonoBehaviour {
         cardText.GetComponent<TextMesh>().text = " ATK HLT SPD \n   " + cardAttack.ToString() + "     " + cardHealth.ToString() + "      " + cardSpeed.ToString();
         Vector3 textPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         float heightOfText = cardText.GetComponent<MeshRenderer>().bounds.size.y;
-        textPos.x -= width / 2 / 100 ;
+        textPos.x -= width / 2 / 100;
         textPos.y -= ((height / 100) / 2) - heightOfText;
         cardText.transform.position = textPos;
 
 
         GameObject cardBorder = GameObject.Instantiate<GameObject>((GameObject)Resources.Load("Prefab/Card-border"));
         cardBorder.name = gameObject.name + "-border";
-       
+
         Vector3 borderPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         cardBorder.transform.position = borderPos;
 
@@ -59,15 +64,15 @@ public class Card : MonoBehaviour {
         cardName.transform.parent = gameObject.transform;
         cardImg.transform.parent = gameObject.transform;
 
-        if (cardData != null){
-            if (cardData.cType == CardData.cardType.UNIT){
+        if (cardData != null) {
+            if (cardData.cType == CardData.cardType.UNIT) {
                 UnitDat tempData = (UnitDat)cardData;
                 changeName(tempData.cardName);
                 cardAttack = tempData.attack;
                 cardHealth = tempData.health;
                 cardSpeed = tempData.speed;
                 Sprite imgSprite = new Sprite();
-                switch (tempData.uType){
+                switch (tempData.uType) {
                     case UnitDat.unitType.SWORDSMAN:
                         imgSprite = Resources.Load<Sprite>("Graphics/sword");
                         break;
@@ -86,11 +91,34 @@ public class Card : MonoBehaviour {
                 obj.GetComponent<SpriteRenderer>().sprite = imgSprite;
             }
         }
+        foreach (SpriteRenderer temp in GetComponentsInChildren<SpriteRenderer>()) {
+            temp.sortingOrder = Card.cardNum;
+        }
+        cardNum++;
+        transform.localScale = new Vector3(transform.localScale.x * 0.75f, transform.localScale.y * 0.75f, 1);
     }
 	
 	// Update is called once per frame
 	void Update () {
         GetComponentInChildren<TextMesh>().text = " ATK HLT SPD \n   " + cardAttack.ToString() + "     " + cardHealth.ToString() + "      " + cardSpeed.ToString();
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = 2;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Bounds cardBounds = transform.FindChild(name + "-border").GetComponent<SpriteRenderer>().bounds;
+        if (cardBounds.Contains(mousePosition))
+        {
+            if (cardMoveTranistion == 0)
+            {
+                cardTransitionStart = transform.position;
+                cardTransitionEnd = new Vector3(transform.position.x, transform.position.y + cardUnitWidth, transform.position.z);
+            }
+            cardMoveTranistion++;
+            transform.position = Vector3.Lerp(cardTransitionStart, cardTransitionEnd, (float)cardMoveTranistion / 50f);
+        }
+        else if(cardTransitionStart != Vector3.zero){
+            cardMoveTranistion = 0;
+            transform.position = cardTransitionStart;
+        }
     }
 
     public void changeCard(CardData newCard){

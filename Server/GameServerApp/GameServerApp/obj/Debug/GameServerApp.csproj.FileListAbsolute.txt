@@ -1,0 +1,9 @@
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\bin\Debug\GameServerApp.exe.config
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\bin\Debug\GameServerApp.exe
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\bin\Debug\GameServerApp.pdb
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\obj\Debug\GameServerApp.csprojResolveAssemblyReference.cache
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\obj\Debug\GameServerApp.Form1.resources
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\obj\Debug\GameServerApp.Properties.Resources.resources
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\obj\Debug\GameServerApp.csproj.GenerateResource.Cache
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\obj\Debug\GameServerApp.exe
+C:\Users\Home\Documents\Game-Jam-Fall-2016\Server\GameServerApp\GameServerApp\obj\Debug\GameServerApp.pdb

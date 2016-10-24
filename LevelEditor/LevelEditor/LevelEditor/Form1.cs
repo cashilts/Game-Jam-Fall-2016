@@ -41,7 +41,7 @@ namespace LevelEditor
             tileColorLookup.Add('t', Color.Green);
             tileColorLookup.Add('m', Color.Gray);
             tileColorLookup.Add('g', Color.GreenYellow);
-            tileColorLookup.Add('h', Color.Brown);
+            tileColorLookup.Add('h', Color.SaddleBrown);
 
             label1.Text = "Assign mode: " + toAssign.ToString();
 

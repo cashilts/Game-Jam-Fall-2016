@@ -40,17 +40,6 @@ public class Board : MonoBehaviour {
         }
         blankBoard.SetPixels(blacks);
         blankBoard.Apply();
-        Color[] whiteArray = new Color[1000];
-        for (int i = 0; i < 1000; i++)
-        {
-            whiteArray[i] = Color.white;
-        }
-        for (int x = 0; x < 1000; x += 50)
-        {
-            blankBoard.SetPixels(x, 0, 1, 1000, whiteArray);
-            blankBoard.SetPixels(0, x, 1000, 1, whiteArray);
-        }
-        blankBoard.Apply();
         Sprite temp = Sprite.Create(blankBoard, new Rect(0,0, 1000, 1000), new Vector2(0, 0));
         SpriteRenderer sprite = (SpriteRenderer)this.GetComponent("SpriteRenderer");
         sprite.sprite = temp;
@@ -77,23 +66,36 @@ public class Board : MonoBehaviour {
         for (int x = 0; x < 20; x++){
             for (int y = 0; y < 20; y++) {
                 GameObject newSprite = GameObject.Instantiate((GameObject)Resources.Load("Prefab/BoardSprite"));
+                GameObject spriteBack = GameObject.Instantiate((GameObject)Resources.Load("Prefab/Tile"));
                 newSprite.name = this.name + x.ToString() + "-" + y.ToString();
+                spriteBack.name = this.name + x.ToString() + "-" + y.ToString() + "-back";
                 Vector3 position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
                 position.x += (50 * x) / 100f + 25f / 100f;
                 position.y += ((20 * 50) - (y * 50)) / 100f - 25f / 100f;
                 newSprite.transform.position = position;
+                spriteBack.transform.position = position;
+                spriteBack.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("Graphics/tile");
+                
                 switch (tiles[x, y].type) {
                     case tileType.HILL:
                         newSprite.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("Graphics/hill");
+                        spriteBack.GetComponent<SpriteRenderer>().color = new Color(139f / 255f, 69f / 255f, 19f / 255f);
                         break;
                     case tileType.MOUNTAIN:
                         newSprite.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("Graphics/mountain");
+                        spriteBack.GetComponent<SpriteRenderer>().color = new Color(128f / 255f, 128f / 255f, 128f / 255f);
                         break;
                     case tileType.TREE:
                         newSprite.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("Graphics/tree");
+                        spriteBack.GetComponent<SpriteRenderer>().color = new Color(0, 125f / 255f, 0);
                         break;
+                    case tileType.PLAIN:
+                        spriteBack.GetComponent<SpriteRenderer>().color = new Color(144f / 255f, 238f / 255f, 144f / 255f);
+                        break;
+                    
                 }
                 newSprite.transform.parent = transform;
+                spriteBack.transform.parent = newSprite.transform;
             }
         }
     }
