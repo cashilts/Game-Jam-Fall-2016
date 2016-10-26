@@ -63,8 +63,21 @@ namespace GameServerApp
                     string hostName = content.Substring(4);
                     hostName = hostName.Replace("\0", "");
                     IPEndPoint endPoint = handler.RemoteEndPoint as IPEndPoint;
-                    KeyValuePair<String, IPEndPoint> temp = new KeyValuePair<string, IPEndPoint>(hostName, endPoint);
-                    Connections.Add(hostName, endPoint);
+                    if (Connections.ContainsKey(hostName))
+                    {
+                        string response = "Invalid";
+                        byte[] bytes = new byte[1024];
+                        bytes = Encoding.ASCII.GetBytes(response);
+                        handler.Send(bytes);
+                    }
+                    else {
+                        string response = "Valid";
+                        byte[] bytes = new byte[1024];
+                        bytes = Encoding.ASCII.GetBytes(response);
+                        handler.Send(bytes);
+                        KeyValuePair<String, IPEndPoint> temp = new KeyValuePair<string, IPEndPoint>(hostName, endPoint);
+                        Connections.Add(hostName, endPoint);
+                    }
                 }
                 else if (content.StartsWith("Client"))
                 {
@@ -72,6 +85,7 @@ namespace GameServerApp
                     foreach (KeyValuePair<String, IPEndPoint> host in Connections)
                     {
                         content += host.Key;
+                        content += '-';
                     }
                     content += "<EOF>";
                     byte[] bytes = new byte[1024];
